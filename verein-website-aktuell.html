@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verein Template</title>
+<meta name="description" content="Die offizielle Website unseres Vereins – Gemeinschaft, Engagement und Zusammenhalt.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300..700&display=swap" rel="stylesheet">
+
+<style>
+/* ─── Art direction: Verein/Association → warm, civic, trustworthy
+   Palette: warm neutrals, deep teal accent
+   Typography: Instrument Serif (display) + Work Sans (body)
+   Density: balanced ─── */
+
+:root, [data-theme="light"] {
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Work Sans', 'Helvetica Neue', sans-serif;
+
+  --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+  --text-base-1:   clamp(1rem, 0.95rem  + 0.25vw, 1rem);
+  --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
+  --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
+  --text-3xl:  clamp(2.5rem,   1rem    + 4vw,    5rem);
+
+  --space-1:0.25rem;--space-2:0.5rem;--space-3:0.75rem;--space-4:1rem;
+  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;
+  --space-12:3rem;--space-16:4rem;--space-20:5rem;--space-24:6rem;
+
+  --color-bg:              #f7f6f2;
+  --color-surface:         #f9f8f5;
+  --color-surface-2:       #fbfbf9;
+  --color-surface-offset:  #f3f0ec;
+  --color-surface-offset-2:#edeae5;
+  --color-divider:         #dcd9d5;
+  --color-border:          #d4d1ca;
+  --color-text:            #28251d;
+  --color-text-muted:      #7a7974;
+  --color-text-faint:      #bab9b4;
+  --color-text-inverse:    #f9f8f4;
+  --color-primary:         #01696f;
+  --color-primary-hover:   #0c4e54;
+  --color-primary-active:  #0f3638;
+  --color-primary-highlight:#cedcd8;
+  --color-success:         #437a22;
+
+  --radius-sm:0.375rem;--radius-md:0.5rem;--radius-lg:0.75rem;
+  --radius-xl:1rem;--radius-full:9999px;
+  --transition-interactive:180ms cubic-bezier(0.16,1,0.3,1);
+  --shadow-sm:0 1px 2px oklch(0.2 0.01 80/0.06);
+  --shadow-md:0 4px 12px oklch(0.2 0.01 80/0.08);
+  --shadow-lg:0 12px 32px oklch(0.2 0.01 80/0.12);
+  --content-default:960px;
+  --content-wide:1200px;
+  --header-h: 70px;
+}
+[data-theme="dark"] {
+  --color-bg:             #171614;
+  --color-surface:        #1c1b19;
+  --color-surface-2:      #201f1d;
+  --color-surface-offset: #1d1c1a;
+  --color-surface-offset-2:#22211f;
+  --color-divider:        #262523;
+  --color-border:         #393836;
+  --color-text:           #cdccca;
+  --color-text-muted:     #797876;
+  --color-text-faint:     #5a5957;
+  --color-text-inverse:   #2b2a28;
+  --color-primary:        #4f98a3;
+  --color-primary-hover:  #227f8b;
+  --color-primary-active: #1a626b;
+  --color-primary-highlight:#313b3b;
+  --color-success:        #6daa45;
+  --shadow-sm:0 1px 2px oklch(0 0 0/0.2);
+  --shadow-md:0 4px 12px oklch(0 0 0/0.3);
+  --shadow-lg:0 12px 32px oklch(0 0 0/0.4);
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme]){
+  --color-bg:#171614;--color-surface:#1c1b19;--color-surface-2:#201f1d;
+  --color-surface-offset:#1d1c1a;--color-divider:#262523;--color-border:#393836;
+  --color-text:#cdccca;--color-text-muted:#797876;--color-text-faint:#5a5957;
+  --color-text-inverse:#2b2a28;--color-primary:#4f98a3;--color-primary-hover:#227f8b;
+  --color-primary-active:#1a626b;--color-primary-highlight:#313b3b;
+  --shadow-sm:0 1px 2px oklch(0 0 0/0.2);--shadow-md:0 4px 12px oklch(0 0 0/0.3);
+  --shadow-lg:0 12px 32px oklch(0 0 0/0.4);
+}}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  scroll-behavior:smooth;scroll-padding-top:var(--header-h);
+}
+body{
+  min-height:100dvh;line-height:1.6;
+  font-family:var(--font-body);font-size:var(--text-base);
+  color:var(--color-text);background:var(--color-bg);
+}
+img,picture,svg{display:block;max-width:100%;height:auto}
+ul[role="list"],ol[role="list"]{list-style:none}
+input,button,textarea,select{font:inherit;color:inherit}
+h1,h2,h3,h4{text-wrap:balance;line-height:1.15}
+p,li{text-wrap:pretty;max-width:72ch}
+::selection{background:oklch(from var(--color-primary) l c h/0.2);color:var(--color-text)}
+:focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:var(--radius-sm)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important;scroll-behavior:auto!important}}
+a,button,[role="button"],input,textarea,select{
+  transition:color var(--transition-interactive),background var(--transition-interactive),
+  border-color var(--transition-interactive),box-shadow var(--transition-interactive)
+}
+button{cursor:pointer;background:none;border:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
+
+/* ─── LAYOUT ─── */
+.container{max-width:var(--content-default);margin-inline:auto;padding-inline:var(--space-6)}
+
+/* ─── HEADER ─── */
+#site-header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:var(--header-h);
+  background:var(--color-surface);
+  border-bottom:1px solid oklch(from var(--color-text) l c h/0.08);
+  box-shadow:var(--shadow-sm);
+  display:flex;align-items:center;
+}
+.header-inner{
+  width:100%;max-width:var(--content-wide);
+  margin-inline:auto;padding-inline:var(--space-6);
+  display:flex;align-items:center;justify-content:space-between;gap:var(--space-8);
+}
+.logo{
+  display:flex;align-items:center;gap:var(--space-3);
+  text-decoration:none;color:var(--color-text);flex-shrink:0;
+}
+.logo-text{
+  font-family:var(--font-display);font-size:var(--text-lg);
+  font-weight:400;letter-spacing:-0.01em;
+}
+
+/* ─── SCROLL-SPY NAV ─── */
+.main-nav{display:flex;align-items:center;gap:var(--space-1)}
+.main-nav a{
+  font-size:var(--text-sm);font-weight:500;
+  color:var(--color-text-muted);text-decoration:none;
+  padding:var(--space-2) var(--space-3);
+  border-radius:var(--radius-md);
+  position:relative;
+}
+.main-nav a:hover{color:var(--color-text);background:var(--color-surface-offset)}
+.main-nav a.active{color:var(--color-primary);font-weight:600}
+.main-nav a.active::after{
+  content:'';position:absolute;bottom:-2px;left:var(--space-3);
+  right:var(--space-3);height:2px;
+  background:var(--color-primary);border-radius:var(--radius-full);
+}
+
+.header-actions{display:flex;align-items:center;gap:var(--space-3)}
+.btn-primary{
+  font-size:var(--text-sm);font-weight:600;
+  background:var(--color-primary);color:var(--color-text-inverse);
+  padding:var(--space-2) var(--space-5);
+  border-radius:var(--radius-full);text-decoration:none;
+  box-shadow:var(--shadow-sm);
+}
+.btn-primary:hover{background:var(--color-primary-hover);box-shadow:var(--shadow-md)}
+.btn-primary:active{background:var(--color-primary-active)}
+.theme-toggle{
+  display:flex;align-items:center;justify-content:center;
+  width:36px;height:36px;border-radius:var(--radius-full);
+  color:var(--color-text-muted);
+}
+.theme-toggle:hover{background:var(--color-surface-offset);color:var(--color-text)}
+
+/* Hamburger */
+.menu-toggle{
+  display:none;flex-direction:column;gap:5px;
+  width:44px;height:44px;align-items:center;justify-content:center;
+  border-radius:var(--radius-md);color:var(--color-text-muted);
+}
+.menu-toggle span{display:block;width:22px;height:2px;background:currentColor;border-radius:2px;transition:all 0.25s}
+.menu-toggle:hover{background:var(--color-surface-offset);color:var(--color-text)}
+.menu-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* Mobile nav */
+#mobile-nav{
+  display:none;position:fixed;top:var(--header-h);left:0;right:0;
+  background:var(--color-surface);border-bottom:1px solid var(--color-divider);
+  box-shadow:var(--shadow-md);z-index:99;padding:var(--space-4);
+  flex-direction:column;gap:var(--space-1);
+}
+#mobile-nav.open{display:flex}
+#mobile-nav a{
+  font-size:var(--text-base);font-weight:500;color:var(--color-text-muted);
+  text-decoration:none;padding:var(--space-3) var(--space-4);
+  border-radius:var(--radius-md);
+}
+#mobile-nav a:hover{background:var(--color-surface-offset);color:var(--color-text)}
+#mobile-nav a.active{color:var(--color-primary);background:var(--color-primary-highlight)}
+
+/* ─── MAIN CONTENT ─── */
+main{padding-top:var(--header-h)}
+
+/* ─── HERO ─── */
+#hero{
+  min-height:90vh;display:flex;align-items:center;
+  background:linear-gradient(in oklab 160deg, var(--color-surface-offset-2) 0%, var(--color-bg) 60%);
+  position:relative;overflow:hidden;
+}
+#hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 70% 40%, oklch(from var(--color-primary) l c h/0.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-content{
+  position:relative;
+  display:grid;grid-template-columns:1fr;gap:var(--space-8);
+  padding-block:clamp(var(--space-16),10vw,var(--space-24));
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  font-size:var(--text-xs);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--color-primary);background:var(--color-primary-highlight);
+  padding:var(--space-1) var(--space-3);border-radius:var(--radius-full);
+  width:fit-content;margin-bottom:var(--space-4);
+}
+.hero-title{
+  font-family:var(--font-display);font-size:var(--text-3xl);
+  font-weight:400;line-height:1.1;color:var(--color-text);
+  margin-bottom:var(--space-6);
+}
+.hero-title em{font-style:italic;color:var(--color-primary)}
+.hero-lead{
+  font-size:var(--text-lg);color:var(--color-text-muted);
+  max-width:52ch;line-height:1.6;margin-bottom:var(--space-8);
+}
+.hero-cta-row{display:flex;flex-wrap:wrap;gap:var(--space-4);align-items:center}
+.btn-secondary{
+  font-size:var(--text-sm);font-weight:600;
+  color:var(--color-text);text-decoration:none;
+  padding:var(--space-2) var(--space-5);
+  border-radius:var(--radius-full);
+  border:1.5px solid var(--color-border);
+}
+.btn-secondary:hover{background:var(--color-surface-offset);border-color:var(--color-text-muted)}
+.hero-stats{
+  display:flex;flex-wrap:wrap;gap:var(--space-8);
+  padding-top:var(--space-8);border-top:1px solid var(--color-divider);margin-top:var(--space-4);
+}
+.stat-item{display:flex;flex-direction:column;gap:var(--space-1)}
+.stat-number{font-family:var(--font-display);font-size:var(--text-2xl);color:var(--color-primary);line-height:1}
+.stat-label{font-size:var(--text-xs);color:var(--color-text-muted);text-transform:uppercase;letter-spacing:0.06em}
+
+/* ─── SECTIONS ─── */
+.section{padding-block:clamp(var(--space-16),8vw,var(--space-24))}
+.section-alt{background:var(--color-surface)}
+.section-label{
+  font-size:var(--text-xs);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--color-primary);margin-bottom:var(--space-4);
+}
+.section-title{
+  font-family:var(--font-display);font-size:var(--text-2xl);
+  font-weight:400;color:var(--color-text);margin-bottom:var(--space-6);line-height:1.15;
+}
+.section-lead{
+  font-size:var(--text-base);color:var(--color-text-muted);
+  max-width:100%;line-height:1.7;margin-bottom:var(--space-12);
+}
+
+/* ─── ÜBER UNS / ABOUT ─── */
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:var(--space-12);align-items:center;
+}
+.about-image{
+  border-radius:var(--radius-xl);overflow:hidden;
+  box-shadow:var(--shadow-lg);aspect-ratio:5/15;
+  background:var(--color-surface-offset);
+}
+.about-image img{width:100%;height:100%;object-fit:cover}
+.about-text .section-lead{margin-bottom:var(--space-6)}
+.values-list{display:flex;flex-direction:column;gap:var(--space-4);margin-top:var(--space-8)}
+.value-item{
+  display:flex;gap:var(--space-4);align-items:flex-start;
+  padding:var(--space-4);border-radius:var(--radius-lg);
+  background:var(--color-surface-offset);
+  border:1px solid oklch(from var(--color-text) l c h/0.06);
+}
+.value-icon{
+  width:36px;height:36px;border-radius:var(--radius-md);
+  background:var(--color-primary-highlight);color:var(--color-primary);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.value-icon svg{width:18px;height:18px}
+.value-text strong{display:block;font-size:var(--text-sm);font-weight:600;margin-bottom:2px}
+.value-text p{font-size:var(--text-sm);color:var(--color-text-muted);max-width:none;margin:0}
+
+/* ─── AKTIVITÄTEN ─── */
+.activities-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));
+  gap:var(--space-6);
+}
+.activity-card{
+  background:var(--color-surface);border-radius:var(--radius-xl);
+  border:1px solid oklch(from var(--color-text) l c h/0.08);
+  overflow:hidden;box-shadow:var(--shadow-sm);
+  transition:box-shadow var(--transition-interactive),transform var(--transition-interactive);
+}
+.activity-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.card-image{aspect-ratio:16/9;background:var(--color-surface-offset);overflow:hidden}
+.card-image img{width:100%;height:100%;object-fit:cover}
+.card-body{padding:var(--space-5)}
+.card-tag{
+  font-size:var(--text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.07em;
+  color:var(--color-primary);margin-bottom:var(--space-2);
+}
+.card-title{font-family:var(--font-display);font-size:var(--text-lg);margin-bottom:var(--space-3)}
+.card-desc{font-size:var(--text-sm);color:var(--color-text-muted);max-width:none;margin:0}
+
+/* ─── MITGLIEDER / TEAM ─── */
+.team-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(min(220px,100%),1fr));
+  gap:var(--space-6);
+}
+.team-card{
+  background:var(--color-surface);border-radius:var(--radius-xl);
+  border:1px solid oklch(from var(--color-text) l c h/0.08);
+  padding:var(--space-6);text-align:center;
+  box-shadow:var(--shadow-sm);
+}
+.team-avatar{
+  width:80px;height:80px;border-radius:var(--radius-full);
+  background:var(--color-primary-highlight);margin-inline:auto;
+  margin-bottom:var(--space-4);overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-primary);
+}
+.team-avatar img{width:100%;height:100%;object-fit:cover}
+.team-name{font-family:var(--font-display);font-size:var(--text-lg);margin-bottom:var(--space-1)}
+.team-role{font-size:var(--text-xs);color:var(--color-text-muted);text-transform:uppercase;letter-spacing:0.07em}
+
+/* ─── TERMINE / EVENTS ─── */
+.events-list{display:flex;flex-direction:column;gap:var(--space-4)}
+.event-row{
+  display:grid;grid-template-columns:80px 1fr auto;
+  gap:var(--space-6);align-items:center;
+  background:var(--color-surface);
+  border:1px solid oklch(from var(--color-text) l c h/0.08);
+  border-radius:var(--radius-xl);padding:var(--space-5) var(--space-6);
+  box-shadow:var(--shadow-sm);
+}
+.event-date{
+  text-align:center;
+  font-family:var(--font-display);
+}
+.event-date .day{font-size:var(--text-2xl);color:var(--color-primary);line-height:1}
+.event-date .month{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.07em;color:var(--color-text-muted)}
+.event-info h3{font-size:var(--text-base-1);font-weight:600;margin-bottom:var(--space-1)}
+.event-info p{font-size:var(--text-sm);color:var(--color-text-muted);max-width:none;margin:0}
+.event-badge{
+  font-size:var(--text-xs);font-weight:600;
+  padding:var(--space-1) var(--space-3);border-radius:var(--radius-full);
+  white-space:nowrap;
+}
+.badge-open{background:var(--color-primary-highlight);color:var(--color-primary)}
+.badge-soon{background:#fef3c7;color:#92400e}
+[data-theme="dark"] .badge-soon{background:#44341a;color:#fbbf24}
+
+/* ─── KONTAKT ─── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-12)}
+.contact-form{display:flex;flex-direction:column;gap:var(--space-5)}
+.form-group{display:flex;flex-direction:column;gap:var(--space-2)}
+.form-group label{font-size:var(--text-sm);font-weight:600;color:var(--color-text)}
+.form-group input,.form-group textarea{
+  font-size:var(--text-base);color:var(--color-text);
+  background:var(--color-surface-2);
+  border:1.5px solid var(--color-border);
+  border-radius:var(--radius-md);
+  padding:var(--space-3) var(--space-4);
+  transition:border-color var(--transition-interactive),box-shadow var(--transition-interactive);
+  resize:vertical;
+}
+.form-group input:focus,.form-group textarea:focus{
+  outline:none;border-color:var(--color-primary);
+  box-shadow:0 0 0 3px oklch(from var(--color-primary) l c h/0.15);
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
+.contact-info{display:flex;flex-direction:column;gap:var(--space-6)}
+.contact-card{
+  background:var(--color-surface);border-radius:var(--radius-xl);
+  border:1px solid oklch(from var(--color-text) l c h/0.08);
+  padding:var(--space-6);box-shadow:var(--shadow-sm);
+}
+.contact-card h3{font-size:var(--text-base);font-weight:600;margin-bottom:var(--space-4)}
+.contact-detail{
+  display:flex;align-items:center;gap:var(--space-3);
+  font-size:var(--text-sm);color:var(--color-text-muted);
+  padding:var(--space-2) 0;
+}
+.contact-detail svg{width:16px;height:16px;color:var(--color-primary);flex-shrink:0}
+.contact-detail a{color:var(--color-text-muted);text-decoration:none}
+.contact-detail a:hover{color:var(--color-primary)}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--color-surface-offset-2);
+  border-top:1px solid var(--color-divider);
+  padding-block:var(--space-12);
+}
+.footer-inner{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:var(--space-8);flex-wrap:wrap;
+}
+.footer-brand{display:flex;align-items:center;gap:var(--space-3)}
+.footer-links{display:flex;gap:var(--space-6)}
+.footer-links a{font-size:var(--text-sm);color:var(--color-text-muted);text-decoration:none}
+.footer-links a:hover{color:var(--color-text)}
+.footer-copy{font-size:var(--text-xs);color:var(--color-text-faint)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:768px){
+  .main-nav{display:none}
+  .menu-toggle{display:flex}
+  .about-grid{grid-template-columns:1fr}
+  .about-image{aspect-ratio:16/9}
+  .contact-grid{grid-template-columns:1fr}
+  .event-row{grid-template-columns:60px 1fr;gap:var(--space-4)}
+  .event-badge{display:none}
+  .form-row{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;text-align:center}
+  .footer-links{justify-content:center}
+}
+@media(max-width:480px){
+  .hero-stats{gap:var(--space-6)}
+  .header-actions .btn-primary{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Skip link -->
+<a class="sr-only" href="#main-content">Zum Inhalt springen</a>
+
+<!-- ─── FIXED HEADER ─── -->
+<header id="site-header" role="banner">
+  <div class="header-inner">
+    <!-- SVG Logo -->
+    <a href="#hero" class="logo" aria-label="Vereinsname – Startseite">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+        <img src="img/logo.svg"  width="50" height="50">
+      </svg>
+      <span class="logo-text">BvtG</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="main-nav" role="navigation" aria-label="Hauptnavigation">
+      <a href="#about" data-section="about">Über uns</a>
+      <a href="#activities" data-section="activities">Aktivitäten</a>
+      <a href="#team" data-section="team">Team</a>
+      <a href="#events" data-section="events">Termine</a>
+      <a href="#contact" data-section="contact">Kontakt</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="theme-toggle" data-theme-toggle aria-label="Dunklen Modus aktivieren">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <a href="#contact" class="btn-primary">Mitglied werden</a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menü öffnen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Navigation -->
+<nav id="mobile-nav" role="navigation" aria-label="Mobile Navigation">
+  <a href="#about">Über uns</a>
+  <a href="#activities">Aktivitäten</a>
+  <a href="#team">Team</a>
+  <a href="#events">Termine</a>
+  <a href="#contact">Kontakt</a>
+  <a href="#contact" class="btn-primary" style="text-align:center;margin-top:var(--space-2)">Mitglied werden</a>
+</nav>
+
+<!-- ─── MAIN ─── -->
+<main id="main-content">
+
+  <!-- HERO -->
+  <section id="hero" aria-labelledby="hero-heading">
+    <div class="container">
+      <div class="hero-content">
+        <div>
+          <p class="hero-tag">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><circle cx="6" cy="6" r="6"/></svg>
+            Gegründet 2023 · Nürnberg
+          </p>
+          <h1 id="hero-heading" class="hero-title">
+            Berufsverband für <br><em>transdisziplinäre Gerontologie</em>
+          </h1>
+          <p class="hero-lead">
+            Wir sind ein gemeinnütziger Verein, der es sich zur Aufgabe macht das Berufsbild der Gerontologie durch Kooperationen zwischen Wissenschaft und Praxis weiterzuentwickeln und in der Arbeitswelt zu etablieren.
+          </p>
+          <div class="hero-cta-row">
+            <a href="#contact" class="btn-primary">Jetzt Mitglied werden</a>
+            <a href="#activities" class="btn-secondary">Unsere Aktivitäten →</a>
+          </div>
+        </div>
+        <div class="hero-stats">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÜBER UNS -->
+  <section id="about" class="section section-alt" aria-labelledby="about-heading">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image">
+          <img src="img/Uns-Baum.jpg" alt="Vereinsmitglieder bei einer Veranstaltung" width="800" height="800" loading="lazy">
+        </div>
+        <div class="about-text">
+          <p class="section-label">Über uns</p>
+          <h2 id="about-heading" class="section-title">Wer wir sind und was uns antreibt</h2>
+          <p class="section-lead">
+            Als Professionelle, die sich mit Themen des Alter(n)s und der Gesundheit auseinandersetzen ist uns klar, welche komplexen Fragestellungen und Aufgaben bereits bestehen und auf uns als Gemeinschaft verstärkt zukommen. <br>Wir sind davon überzeugt, dass das Berufsbild der Gerontolog*innen, für einen gelungenen Umgang damit, bedeutsam sein wird. Bei der Frage welche kooperativen Rollen wir hierbei einnehmen werden, setzt der Berufsverband an.</em>
+          </p>
+          <div class="values-list">
+            <div class="value-item">
+              <div class="value-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              </div>
+              <div class="value-text">
+                <strong>Ausblick</strong>
+                <p>Wir sind ein junger Verein, doch jede nachhaltige Entwicklung muss irgendwo ihren Anfang nehmen. Den großen Themengebieten zu gesundem Alter(n) und unseren professionellen Rollen darin, kann nur mit Langmut und konstruktiver Zuversicht begegnet werden. </p>
+              </div>
+            </div>
+            <div class="value-item">
+              <div class="value-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <div class="value-text">
+                <strong>Aktion</strong>
+                <p>Durch den Austausch mit anderen Berufsverbänden und der Deutschen Gesellschaft für Gerontologie und Geriatrie e.V. (DGGG), sowie Gewerkschaften und politischen Vertreter*innen stärken wir das Berufsbild der Gerontologie umfassend. </p>
+              </div>
+            </div>
+             <div class="value-item">
+              <div class="value-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="value-text">
+                <strong>Vernetzung</strong>
+                <p>Unser transdisziplinäres Netzwerk, profitiert von den diversen Erfahrungshintergründen unserer Mitglieder. Ob berufliche Aktivität in der Wissenschaft, der Pflege oder anderen Bereichen des Gesundheitswesens, wir alle wollen auf unsere Weise konstruktiv und in Würde arbeiten.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AKTIVITÄTEN -->
+  <section id="activities" class="section" aria-labelledby="activities-heading">
+    <div class="container">
+      <p class="section-label">Was wir tun</p>
+      <h2 id="activities-heading" class="section-title">Unsere Aktivitäten</h2>
+      <p class="section-lead">
+        Wir entwickeln gemeinsam fortlaufend Angebote, die unseren Verein und seine Mitglieder fördern.
+      </p>
+      <div class="activities-grid">
+        <article class="activity-card">
+          <div class="card-image">
+            <img src="img/Netzwerktreffen.jpg" alt="Sportveranstaltung des Vereins" width="600" height="340" loading="lazy">
+          </div>
+          <div class="card-body">
+            <p class="card-tag">Austausch</p>
+            <h3 class="card-title">Netzwerktreffen</h3>
+            <p class="card-desc">Organisierte Treffen in Präsenz und Online, angepasst an den aktuellen Bedarf, bieten Möglichkeit zum Austausch und für kollegiale Begleitung.</p>
+          </div>
+        </article>
+        <article class="activity-card">
+          <div class="card-image">
+            <img src="img/Gemeinschaft.jpg" alt="Kulturabend des Vereins" width="600" height="340" loading="lazy">
+          </div>
+          <div class="card-body">
+            <p class="card-tag">Events</p>
+            <h3 class="card-title">Professionelle Gemeinschaft leben</h3>
+            <p class="card-desc">Events die professionellen Austausch und gelebte Gemeinschaft ermöglichen, die verbinden und bereichern.</p>
+          </div>
+        </article>
+        <article class="activity-card">
+          <div class="card-image">
+            <img src="img/Bildung.jpg" alt="Workshop des Vereins" width="600" height="340" loading="lazy">
+          </div>
+          <div class="card-body">
+            <p class="card-tag">Bildung</p>
+            <h3 class="card-title">Workshops & Seminare</h3>
+            <p class="card-desc">Weiterbildungsangebote und praxisnahe Workshops zu relevanten Themen für alle Vereinsmitglieder.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" class="section section-alt" aria-labelledby="team-heading">
+    <div class="container">
+      <p class="section-label">Vorstand</p>
+      <h2 id="team-heading" class="section-title">Unser Team</h2>
+      <p class="section-lead">
+        Engagierte Menschen, die den Verein mit Leidenschaft und Expertise leiten und gestalten.
+      </p>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar">L</div>
+          <p class="team-name">Lisa Maier</p>
+          <p class="team-role">Vorsitzende</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">M</div>
+          <p class="team-name">Maria Szobries</p>
+          <p class="team-role">Kassenwärtin</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">P</div>
+          <p class="team-name">Petra Gundacker</p>
+          <p class="team-role">Schriftführerin</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMINE -->
+  <section id="events" class="section" aria-labelledby="events-heading">
+    <div class="container">
+      <p class="section-label">Kalender</p>
+      <h2 id="events-heading" class="section-title">Nächste Termine</h2>
+      <p class="section-lead">
+        Bleib auf dem Laufenden – hier findest du alle kommenden Veranstaltungen und Treffen.
+      </p>
+      <div class="events-list">
+        <div class="event-row">
+          <div class="event-date"><div class="day">20</div><div class="month">Jul</div></div>
+          <div class="event-info">
+            <h3>Jahreshauptversammlung 2026</h3>
+            <p>Jährliche Hauptversammlung für alle Mitglieder zum Austausch über zukünftige Entwicklungen innerhalb des Vereins. Innenstadt Nürnberg, 18:00 Uhr</p>
+          </div>
+          <span class="event-badge badge-open">Anmeldung offen</span>
+        </div>
+        <div class="event-row">
+          <div class="event-date"><div class="day">2027</div><div class="month">Termin folgt</div></div>
+          <div class="event-info">
+            <h3>Workshop - Differenzierung zwischen Prävention und Gesundheitsförderung</h3>
+            <p>Ein Workshop zur Betrachtung und gemeinsamen Weiterentwicklung zum Thema der Differenzierung zwischen Prävention und Gesundheitsförderung</p>
+          </div>
+          <span class="event-badge badge-open">Bald</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section id="contact" class="section section-alt" aria-labelledby="contact-heading">
+    <div class="container">
+      <p class="section-label">Kontakt</p>
+      <h2 id="contact-heading" class="section-title">Werde Mitglied oder schreib uns</h2>
+      <p class="section-lead">
+        Du möchtest mitmachen oder hast Fragen? Wir freuen uns auf deine Nachricht!
+      </p>
+      <div class="contact-grid">
+        <form class="contact-form" onsubmit="handleSubmit(event)" novalidate aria-label="Kontaktformular">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">Vorname</label>
+              <input type="text" id="fname" name="fname" placeholder="Maximiliane" autocomplete="given-name" required>
+            </div>
+            <div class="form-group">
+              <label for="lname">Nachname</label>
+              <input type="text" id="lname" name="lname" placeholder="Musterfrau" autocomplete="family-name" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail-Adresse</label>
+            <input type="email" id="email" name="email" placeholder="maximiliane@beispiel.de" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Betreff</label>
+            <input type="text" id="subject" name="subject" placeholder="Mitgliedschaft / Frage / ..." required>
+          </div>
+          <div class="form-group">
+            <label for="message">Nachricht</label>
+            <textarea id="message" name="message" rows="5" placeholder="Deine Nachricht an uns..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width:fit-content;padding:var(--space-3) var(--space-8)">Nachricht senden</button>
+          <p id="form-success" style="display:none;color:var(--color-success);font-size:var(--text-sm);font-weight:600">
+            ✓ Vielen Dank! Wir melden uns bald bei dir.
+          </p>
+        </form>
+        <div class="contact-info">
+          <div class="contact-card">
+            <h3>Vereinsadresse</h3>
+            <div class="contact-detail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Musterstraße 42, Nürnberg</span>
+            </div>
+            <div class="contact-detail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.5 19.79 19.79 0 0 1 1.61 2.84 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.57a16 16 0 0 0 6 6l1.27-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <a href="tel:+499819876543">0171 555Nase</a>
+            </div>
+            <div class="contact-detail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <a href="mailto:info@unserverein.de">info@bvtg.de</a>
+            </div>
+          </div>
+          <div class="contact-card">
+            <h3>Erreichbarkeit</h3>
+            <div class="contact-detail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <div>
+                <div>Mo–Fr: 10:00 – 18:00 Uhr</div>
+              </div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <h3>Mitgliedsbeitrag</h3>
+            <div class="contact-detail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <div>
+                <div>30 €/Jahr</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+           <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+             <img src="img/logo.svg"  width="30" height="30">
+           </svg>
+        <span style="font-family:var(--font-display);font-size:var(--text-base)">BvtG e.V.</span>
+      </div>
+      <nav class="footer-links" aria-label="Footer-Navigation">
+        <a href="#about">Über uns</a>
+        <a href="#activities">Aktivitäten</a>
+        <a href="#events">Termine</a>
+        <a href="#contact">Kontakt</a>
+        <a href="#contact">Impressum</a>
+        <a href="#contact">Datenschutz</a>
+      </nav>
+      <p class="footer-copy">© 2026 BvtG e.V. · Nürnberg</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── DARK MODE TOGGLE ───
+(function(){
+  const t=document.querySelector('[data-theme-toggle]');
+  const r=document.documentElement;
+  let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+  r.setAttribute('data-theme',d);
+  function updateIcon(){
+    if(!t)return;
+    t.setAttribute('aria-label','Zu '+(d==='dark'?'hellem':'dunklem')+' Modus wechseln');
+    t.innerHTML=d==='dark'
+      ?'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+      :'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  }
+  updateIcon();
+  if(t) t.addEventListener('click',()=>{d=d==='dark'?'light':'dark';r.setAttribute('data-theme',d);updateIcon();});
+})();
+
+// ─── SCROLL SPY ───
+(function(){
+  const sections=['hero','about','activities','team','events','contact'];
+  const navLinks=document.querySelectorAll('.main-nav a[data-section], #mobile-nav a');
+  const mobileLinks=document.querySelectorAll('#mobile-nav a[href^="#"]');
+
+  function setActive(id){
+    document.querySelectorAll('.main-nav a, #mobile-nav a').forEach(a=>{
+      a.classList.toggle('active', a.getAttribute('href')==='#'+id || a.dataset.section===id);
+    });
+  }
+
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) setActive(e.target.id);
+    });
+  },{rootMargin:'-30% 0px -60% 0px',threshold:0});
+
+  sections.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) observer.observe(el);
+  });
+})();
+
+// ─── HAMBURGER MENU ───
+(function(){
+  const toggle=document.querySelector('.menu-toggle');
+  const mobileNav=document.getElementById('mobile-nav');
+  if(!toggle||!mobileNav)return;
+  toggle.addEventListener('click',()=>{
+    const open=mobileNav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded',String(open));
+    toggle.setAttribute('aria-label',open?'Menü schließen':'Menü öffnen');
+  });
+  // Close on link click
+  mobileNav.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click',()=>{
+      mobileNav.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+      toggle.setAttribute('aria-label','Menü öffnen');
+    });
+  });
+})();
+
+// ─── FORM SUBMIT ───
+function handleSubmit(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('[type="submit"]');
+  const success=document.getElementById('form-success');
+  btn.disabled=true;btn.textContent='Wird gesendet…';
+  setTimeout(()=>{
+    e.target.reset();
+    btn.disabled=false;btn.textContent='Nachricht senden';
+    success.style.display='block';
+    setTimeout(()=>success.style.display='none',5000);
+  },1000);
+}
+</script>
+</body>
+</html>
